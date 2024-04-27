@@ -1,5 +1,6 @@
 package com.application.store.model;
 
+import com.application.store.dto.ProductRegistrationData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,11 @@ public class Product {
     private BigDecimal price;
     @Column(name = "available_quantity")
     private Double availableQuantity;
+
+    public Product(ProductRegistrationData data) {
+        this.name = data.name();
+        this.brand = data.brand();
+        this.price = data.price();
+        this.availableQuantity = data.availableQuantity();
+    }
 }
