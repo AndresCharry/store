@@ -31,4 +31,9 @@ public class ProductService implements IProductService {
                                                           .toList();
         return new PageImpl<>(ProductsData, pageable, ProductsData.size());
     }
+
+    @Override
+    public ProductData getProductById(Long id) {
+        return new ProductData(productRepository.getReferenceById(id));
+    }
 }
