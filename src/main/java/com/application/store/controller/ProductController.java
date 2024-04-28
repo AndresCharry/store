@@ -42,4 +42,11 @@ public class ProductController {
                                                      @RequestBody @Valid ProductRegistrationData productRegistrationData) {
         return ResponseEntity.ok(productService.updateProduct(id, productRegistrationData));
     }
+
+    @DeleteMapping("/delete/{id}")
+    @Transactional
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
 }

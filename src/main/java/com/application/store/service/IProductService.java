@@ -10,4 +10,5 @@ public interface IProductService {
     public Page<ProductData> getPageAllProducts(Pageable pageable);
     public ProductData getProductById(Long id);
     public ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData);
+    public void deleteProduct(Long id);
 }

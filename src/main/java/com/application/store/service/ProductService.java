@@ -43,4 +43,9 @@ public class ProductService implements IProductService {
         product.updateData(productRegistrationData);
         return new ProductData(product);
     }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }
