@@ -26,4 +26,10 @@ public class Customer {
         this.lastName = customerRegistratinoData.lastName();
         this.dni = customerRegistratinoData.dni();
     }
+
+    public void updateData(CustomerRegistratinoData customerRegistratinoData) {
+        this.name = customerRegistratinoData.name();
+        this.lastName = customerRegistratinoData.lastName();
+        this.dni = customerRegistratinoData.dni();
+    }
 }

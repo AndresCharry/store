@@ -34,4 +34,11 @@ public class CustomerController {
     public ResponseEntity<CustomerData> getCustomerById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
+
+    @PutMapping("/edit/{id}")
+    @Transactional
+    public ResponseEntity<CustomerData> updateCustomer(@PathVariable("id") Long id,
+                                                       @RequestBody @Valid CustomerRegistratinoData customerRegistratinoData) {
+        return ResponseEntity.ok(customerService.updateCustomer(id, customerRegistratinoData));
+    }
 }

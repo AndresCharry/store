@@ -9,4 +9,5 @@ public interface ICustomerService {
     public CustomerData createCustomer(CustomerRegistratinoData customerRegistratinoData);
     public Page<CustomerData> getPageAllCustomers(Pageable pageable);
     public CustomerData getCustomerById(Long id);
+    public CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData);
 }

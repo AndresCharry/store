@@ -38,4 +38,11 @@ public class CustomerService implements ICustomerService {
     public CustomerData getCustomerById(Long id) {
         return new CustomerData(customerRepository.getReferenceById(id));
     }
+
+    @Override
+    public CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData) {
+        Customer customer = customerRepository.getReferenceById(id);
+        customer.updateData(customerRegistratinoData);
+        return new CustomerData(customer);
+    }
 }
