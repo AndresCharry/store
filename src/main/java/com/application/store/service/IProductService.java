@@ -6,7 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IProductService {
-    public ProductData create(ProductRegistrationData data);
+    public ProductData createProduct(ProductRegistrationData productRegistrationData);
     public Page<ProductData> getPageAllProducts(Pageable pageable);
     public ProductData getProductById(Long id);
+    public ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData);
 }

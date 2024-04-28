@@ -24,10 +24,17 @@ public class Product {
     @Column(name = "available_quantity")
     private Double availableQuantity;
 
-    public Product(ProductRegistrationData data) {
-        this.name = data.name();
-        this.brand = data.brand();
-        this.price = data.price();
-        this.availableQuantity = data.availableQuantity();
+    public Product(ProductRegistrationData productRegistrationData) {
+        this.name = productRegistrationData.name();
+        this.brand = productRegistrationData.brand();
+        this.price = productRegistrationData.price();
+        this.availableQuantity = productRegistrationData.availableQuantity();
+    }
+
+    public void updateData(ProductRegistrationData productRegistrationData) {
+        this.name = productRegistrationData.name();
+        this.brand = productRegistrationData.brand();
+        this.price = productRegistrationData.price();
+        this.availableQuantity = productRegistrationData.availableQuantity();
     }
 }

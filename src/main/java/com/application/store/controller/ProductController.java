@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class ProductController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<ProductData> createProduct (@RequestBody @Valid ProductRegistrationData data) {
-        return ResponseEntity.ok(productService.create(data));
+    public ResponseEntity<ProductData> createProduct (@RequestBody @Valid ProductRegistrationData productRegistrationData) {
+        return ResponseEntity.ok(productService.createProduct(productRegistrationData));
     }
 
     @GetMapping("")
@@ -33,5 +34,12 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductData> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @PutMapping("/edit/{id}")
+    @Transactional
+    public ResponseEntity<ProductData> updateProduct(@PathVariable Long id,
+                                                     @RequestBody @Valid ProductRegistrationData productRegistrationData) {
+        return ResponseEntity.ok(productService.updateProduct(id, productRegistrationData));
     }
 }

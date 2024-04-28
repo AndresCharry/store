@@ -19,8 +19,8 @@ public class ProductService implements IProductService {
     private final IProductRepository productRepository;
 
     @Override
-    public ProductData create (ProductRegistrationData data) {
-        return new ProductData(productRepository.save(new Product(data)));
+    public ProductData createProduct(ProductRegistrationData productRegistrationData) {
+        return new ProductData(productRepository.save(new Product(productRegistrationData)));
     }
 
     @Override
@@ -35,5 +35,12 @@ public class ProductService implements IProductService {
     @Override
     public ProductData getProductById(Long id) {
         return new ProductData(productRepository.getReferenceById(id));
+    }
+
+    @Override
+    public ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData) {
+        Product product = productRepository.getReferenceById(id);
+        product.updateData(productRegistrationData);
+        return new ProductData(product);
     }
 }
