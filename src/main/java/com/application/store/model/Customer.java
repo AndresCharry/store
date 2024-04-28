@@ -1,5 +1,6 @@
 package com.application.store.model;
 
+import com.application.store.dto.CustomerRegistratinoData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,4 +20,10 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
     private String dni;
+
+    public Customer(CustomerRegistratinoData customerRegistratinoData) {
+        this.name = customerRegistratinoData.name();
+        this.lastName = customerRegistratinoData.lastName();
+        this.dni = customerRegistratinoData.dni();
+    }
 }
