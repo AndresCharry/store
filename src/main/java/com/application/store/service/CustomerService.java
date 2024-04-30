@@ -45,4 +45,9 @@ public class CustomerService implements ICustomerService {
         customer.updateData(customerRegistratinoData);
         return new CustomerData(customer);
     }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        customerRepository.deleteById(id);
+    }
 }

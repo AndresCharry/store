@@ -41,4 +41,11 @@ public class CustomerController {
                                                        @RequestBody @Valid CustomerRegistratinoData customerRegistratinoData) {
         return ResponseEntity.ok(customerService.updateCustomer(id, customerRegistratinoData));
     }
+
+    @DeleteMapping("/delete/{id}")
+    @Transactional
+    public ResponseEntity<?> deleteCustomer(@PathVariable("id") Long id) {
+        customerService.deleteCustomer(id);
+        return ResponseEntity.noContent().build();
+    }
 }
