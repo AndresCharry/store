@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public record ProductRegistrationData(
         @NotBlank String name,
         @NotBlank String brand,
-        @Min(value = 1) BigDecimal price,
+        @Min(value = 1) BigDecimal unitPrice,
         @Min(value = 1) Double availableQuantity
 ) {
 }

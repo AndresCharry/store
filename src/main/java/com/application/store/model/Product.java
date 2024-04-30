@@ -20,21 +20,22 @@ public class Product {
     private Long id;
     private String name;
     private String brand;
-    private BigDecimal price;
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
     @Column(name = "available_quantity")
     private Double availableQuantity;
 
     public Product(ProductRegistrationData productRegistrationData) {
         this.name = productRegistrationData.name();
         this.brand = productRegistrationData.brand();
-        this.price = productRegistrationData.price();
+        this.unitPrice = productRegistrationData.unitPrice();
         this.availableQuantity = productRegistrationData.availableQuantity();
     }
 
     public void updateData(ProductRegistrationData productRegistrationData) {
         this.name = productRegistrationData.name();
         this.brand = productRegistrationData.brand();
-        this.price = productRegistrationData.price();
+        this.unitPrice = productRegistrationData.unitPrice();
         this.availableQuantity = productRegistrationData.availableQuantity();
     }
 }

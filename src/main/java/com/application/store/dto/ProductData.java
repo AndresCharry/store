@@ -8,10 +8,10 @@ public record ProductData(
    Long id,
    String name,
    String brand,
-   BigDecimal price,
+   BigDecimal unitPrice,
    Double availableQuantity
 ) {
     public ProductData(Product save) {
-        this(save.getId(), save.getName(), save.getBrand(), save.getPrice(), save.getAvailableQuantity());
+        this(save.getId(), save.getName(), save.getBrand(), save.getUnitPrice(), save.getAvailableQuantity());
     }
 }
