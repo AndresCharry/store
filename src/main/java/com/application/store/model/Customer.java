@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "customers")
 @NoArgsConstructor
@@ -20,6 +22,8 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
     private String dni;
+    @OneToMany(mappedBy = "customer")
+    private List<Sale> sales;
 
     public Customer(CustomerRegistratinoData customerRegistratinoData) {
         this.name = customerRegistratinoData.name();

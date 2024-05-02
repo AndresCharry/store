@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -24,6 +25,8 @@ public class Product {
     private BigDecimal unitPrice;
     @Column(name = "available_quantity")
     private Double availableQuantity;
+    @OneToMany(mappedBy = "product")
+    private List<SaleDetail> details;
 
     public Product(ProductRegistrationData productRegistrationData) {
         this.name = productRegistrationData.name();

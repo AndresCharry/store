@@ -25,6 +25,12 @@ public class Sale {
     private LocalDate date;
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
     private List<SaleDetail> details;
+    @ManyToOne
+    @JoinColumn(
+            name = "fk_customer_id",
+            referencedColumnName = "id"
+    )
+    private Customer customer;
 
     public BigDecimal getTotal() {
         if (details == null || details.isEmpty()) return BigDecimal.ZERO;

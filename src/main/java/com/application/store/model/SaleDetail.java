@@ -21,10 +21,13 @@ public class SaleDetail {
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
     @ManyToOne
-    @JoinColumn(name = "Sale_id", insertable = false, updatable = false)
     @MapsId("saleId")
-    @ToString.Exclude
+    @JoinColumn(name = "sale_id")
     private Sale sale;
+    @ManyToOne
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public BigDecimal getSubtotal(){
         if(this.unitPrice == null)return BigDecimal.ZERO;
