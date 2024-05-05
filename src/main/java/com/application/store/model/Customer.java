@@ -32,8 +32,11 @@ public class Customer {
     }
 
     public void updateData(CustomerRegistratinoData customerRegistratinoData) {
-        this.name = customerRegistratinoData.name();
-        this.lastName = customerRegistratinoData.lastName();
-        this.dni = customerRegistratinoData.dni();
+        if (customerRegistratinoData.name() != null)
+            this.name = customerRegistratinoData.name();
+        if (customerRegistratinoData.lastName() != null)
+            this.lastName = customerRegistratinoData.lastName();
+        if (customerRegistratinoData.dni() != null)
+            this.dni = customerRegistratinoData.dni();
     }
 }

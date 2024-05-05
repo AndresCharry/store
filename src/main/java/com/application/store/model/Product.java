@@ -36,9 +36,13 @@ public class Product {
     }
 
     public void updateData(ProductRegistrationData productRegistrationData) {
-        this.name = productRegistrationData.name();
-        this.brand = productRegistrationData.brand();
-        this.unitPrice = productRegistrationData.unitPrice();
-        this.availableQuantity = productRegistrationData.availableQuantity();
+        if (productRegistrationData.name() != null)
+            this.name = productRegistrationData.name();
+        if (productRegistrationData.brand() != null)
+            this.brand = productRegistrationData.brand();
+        if (productRegistrationData.unitPrice() != null)
+            this.unitPrice = productRegistrationData.unitPrice();
+        if (productRegistrationData.availableQuantity() != null)
+            this.availableQuantity = productRegistrationData.availableQuantity();
     }
 }
