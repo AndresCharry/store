@@ -34,6 +34,13 @@ public class CustomerService implements ICustomerService {
         return new PageImpl<>(customersData, pageable, customersData.size());
     }
 
+    public List<CustomerData> getAllCustomers() {
+        return customerRepository.findAll()
+                                 .stream()
+                                 .map(CustomerData::new)
+                                 .toList();
+    }
+
     @Override
     public CustomerData getCustomerById(Long id) {
         return new CustomerData(customerRepository.getReferenceById(id));

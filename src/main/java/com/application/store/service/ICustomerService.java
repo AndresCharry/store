@@ -5,10 +5,13 @@ import com.application.store.dto.CustomerRegistratinoData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ICustomerService {
-    public CustomerData createCustomer(CustomerRegistratinoData customerRegistratinoData);
-    public Page<CustomerData> getPageAllCustomers(Pageable pageable);
-    public CustomerData getCustomerById(Long id);
-    public CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData);
-    public void deleteCustomer(Long id);
+    CustomerData createCustomer(CustomerRegistratinoData customerRegistratinoData);
+    Page<CustomerData> getPageAllCustomers(Pageable pageable);
+    List<CustomerData> getAllCustomers();
+    CustomerData getCustomerById(Long id);
+    CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData);
+    void deleteCustomer(Long id);
 }

@@ -5,10 +5,13 @@ import com.application.store.dto.ProductRegistrationData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface IProductService {
-    public ProductData createProduct(ProductRegistrationData productRegistrationData);
-    public Page<ProductData> getPageAllProducts(Pageable pageable);
-    public ProductData getProductById(Long id);
-    public ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData);
-    public void deleteProduct(Long id);
+    ProductData createProduct(ProductRegistrationData productRegistrationData);
+    Page<ProductData> getPageAllProducts(Pageable pageable);
+    List<ProductData> getAllProducts();
+    ProductData getProductById(Long id);
+    ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData);
+    void deleteProduct(Long id);
 }

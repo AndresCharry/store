@@ -33,6 +33,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<ProductData> getAllProducts() {
+        return productRepository.findAll()
+                                .stream()
+                                .map(ProductData::new)
+                                .toList();
+    }
+
+    @Override
     public ProductData getProductById(Long id) {
         return new ProductData(productRepository.getReferenceById(id));
     }
