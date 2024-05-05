@@ -23,7 +23,10 @@ public class Sale {
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDate date;
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
+    @OneToMany(
+            mappedBy = "sale",
+            cascade = CascadeType.PERSIST
+    )
     private List<SaleDetail> details;
     @ManyToOne
     @JoinColumn(

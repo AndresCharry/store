@@ -20,7 +20,7 @@ public class SaleDetail {
     private Integer quantity;
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("saleId")
     @JoinColumn(name = "sale_id")
     private Sale sale;
