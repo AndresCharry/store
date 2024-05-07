@@ -10,7 +10,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -55,5 +58,15 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Map<Long, BigDecimal> getProductUnitPrice(List<Long> productIds) {
+        List<Product> products = productRepository.findAllById(productIds);
+        Map<Long, BigDecimal> productUnitPrice = new HashMap<>();
+        products.forEach(product ->
+            productUnitPrice.put(product.getId(), product.getUnitPrice())
+        );
+        return productUnitPrice;
     }
 }
