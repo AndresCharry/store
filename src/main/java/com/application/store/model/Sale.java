@@ -1,5 +1,7 @@
 package com.application.store.model;
 
+import com.application.store.dto.DetailsRegistrationData;
+import com.application.store.dto.SaleRegistrationData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +36,14 @@ public class Sale {
             referencedColumnName = "id"
     )
     private Customer customer;
+
+    public Sale(SaleRegistrationData saleRegistrationData) {
+        this.details = saleRegistrationData.details()
+                                           .stream()
+                                           .map(SaleDetail::new)
+                                           .toList();
+        this.customer = new Customer(saleRegistrationData.customer());
+    }
 
     public BigDecimal getTotal() {
         if (details == null || details.isEmpty()) return BigDecimal.ZERO;

@@ -1,5 +1,6 @@
 package com.application.store.model;
 
+import com.application.store.dto.ProductData;
 import com.application.store.dto.ProductRegistrationData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,10 @@ public class Product {
         this.brand = productRegistrationData.brand();
         this.unitPrice = productRegistrationData.unitPrice();
         this.availableQuantity = productRegistrationData.availableQuantity();
+    }
+
+    public Product(ProductData product) {
+        this.id = product.id();
     }
 
     public void updateData(ProductRegistrationData productRegistrationData) {

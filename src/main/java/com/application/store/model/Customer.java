@@ -1,5 +1,6 @@
 package com.application.store.model;
 
+import com.application.store.dto.CustomerData;
 import com.application.store.dto.CustomerRegistratinoData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,10 @@ public class Customer {
         this.name = customerRegistratinoData.name();
         this.lastName = customerRegistratinoData.lastName();
         this.dni = customerRegistratinoData.dni();
+    }
+
+    public Customer(CustomerData customer) {
+        this.id=customer.id();
     }
 
     public void updateData(CustomerRegistratinoData customerRegistratinoData) {
