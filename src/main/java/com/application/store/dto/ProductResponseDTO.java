@@ -11,7 +11,7 @@ public record ProductResponseDTO(
    BigDecimal unitPrice,
    Double availableQuantity
 ) {
-    public ProductResponseDTO(Product save) {
-        this(save.getId(), save.getName(), save.getBrand(), save.getUnitPrice(), save.getAvailableQuantity());
+    public ProductResponseDTO(Product product) {
+        this(product.getId(), product.getName(), product.getBrand(), product.getUnitPrice(), product.getAvailableQuantity());
     }
 }
