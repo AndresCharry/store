@@ -1,7 +1,7 @@
 package com.application.store.controller;
 
-import com.application.store.dto.CustomerData;
-import com.application.store.dto.CustomerRegistratinoData;
+import com.application.store.dto.CustomerResponseDTO;
+import com.application.store.dto.CustomerRequesteDTO;
 import com.application.store.service.ICustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,25 +21,25 @@ public class CustomerController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<CustomerData> createCustomer(@RequestBody @Valid CustomerRegistratinoData customerRegistratinoData) {
-        return ResponseEntity.ok(customerService.createCustomer(customerRegistratinoData));
+    public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody @Valid CustomerRequesteDTO customerRequesteDTO) {
+        return ResponseEntity.ok(customerService.createCustomer(customerRequesteDTO));
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<CustomerData>> getPageAllCustomers(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<CustomerResponseDTO>> getPageAllCustomers(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(customerService.getPageAllCustomers(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerData> getCustomerById(@PathVariable("id") Long id) {
+    public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
     @PutMapping("/edit/{id}")
     @Transactional
-    public ResponseEntity<CustomerData> updateCustomer(@PathVariable("id") Long id,
-                                                       @RequestBody @Valid CustomerRegistratinoData customerRegistratinoData) {
-        return ResponseEntity.ok(customerService.updateCustomer(id, customerRegistratinoData));
+    public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable("id") Long id,
+                                                              @RequestBody @Valid CustomerRequesteDTO customerRequesteDTO) {
+        return ResponseEntity.ok(customerService.updateCustomer(id, customerRequesteDTO));
     }
 
     @DeleteMapping("/delete/{id}")

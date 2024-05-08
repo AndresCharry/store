@@ -1,17 +1,17 @@
 package com.application.store.service;
 
-import com.application.store.dto.CustomerData;
-import com.application.store.dto.CustomerRegistratinoData;
+import com.application.store.dto.CustomerResponseDTO;
+import com.application.store.dto.CustomerRequesteDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ICustomerService {
-    CustomerData createCustomer(CustomerRegistratinoData customerRegistratinoData);
-    Page<CustomerData> getPageAllCustomers(Pageable pageable);
-    List<CustomerData> getAllCustomers();
-    CustomerData getCustomerById(Long id);
-    CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData);
+    CustomerResponseDTO createCustomer(CustomerRequesteDTO customerRequesteDTO);
+    Page<CustomerResponseDTO> getPageAllCustomers(Pageable pageable);
+    List<CustomerResponseDTO> getAllCustomers();
+    CustomerResponseDTO getCustomerById(Long id);
+    CustomerResponseDTO updateCustomer(Long id, CustomerRequesteDTO customerRequesteDTO);
     void deleteCustomer(Long id);
 }

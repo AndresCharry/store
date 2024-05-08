@@ -1,7 +1,7 @@
 package com.application.store.service;
 
-import com.application.store.dto.CustomerData;
-import com.application.store.dto.CustomerRegistratinoData;
+import com.application.store.dto.CustomerResponseDTO;
+import com.application.store.dto.CustomerRequesteDTO;
 import com.application.store.model.Customer;
 import com.application.store.repository.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,38 +19,38 @@ public class CustomerService implements ICustomerService {
     private final ICustomerRepository customerRepository;
 
     @Override
-    public CustomerData createCustomer(CustomerRegistratinoData customerRegistratinoData) {
-        Customer customer = new Customer(customerRegistratinoData);
+    public CustomerResponseDTO createCustomer(CustomerRequesteDTO customerRequesteDTO) {
+        Customer customer = new Customer(customerRequesteDTO);
         customerRepository.save(customer);
-        return new CustomerData(customer);
+        return new CustomerResponseDTO(customer);
     }
 
     @Override
-    public Page<CustomerData> getPageAllCustomers(Pageable pageable) {
-        List<CustomerData> customersData = customerRepository.findAll()
+    public Page<CustomerResponseDTO> getPageAllCustomers(Pageable pageable) {
+        List<CustomerResponseDTO> customersData = customerRepository.findAll()
                                                              .stream()
-                                                             .map(CustomerData::new)
+                                                             .map(CustomerResponseDTO::new)
                                                              .toList();
         return new PageImpl<>(customersData, pageable, customersData.size());
     }
 
-    public List<CustomerData> getAllCustomers() {
+    public List<CustomerResponseDTO> getAllCustomers() {
         return customerRepository.findAll()
                                  .stream()
-                                 .map(CustomerData::new)
+                                 .map(CustomerResponseDTO::new)
                                  .toList();
     }
 
     @Override
-    public CustomerData getCustomerById(Long id) {
-        return new CustomerData(customerRepository.getReferenceById(id));
+    public CustomerResponseDTO getCustomerById(Long id) {
+        return new CustomerResponseDTO(customerRepository.getReferenceById(id));
     }
 
     @Override
-    public CustomerData updateCustomer(Long id, CustomerRegistratinoData customerRegistratinoData) {
+    public CustomerResponseDTO updateCustomer(Long id, CustomerRequesteDTO customerRequesteDTO) {
         Customer customer = customerRepository.getReferenceById(id);
-        customer.updateData(customerRegistratinoData);
-        return new CustomerData(customer);
+        customer.updateData(customerRequesteDTO);
+        return new CustomerResponseDTO(customer);
     }
 
     @Override

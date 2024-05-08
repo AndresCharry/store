@@ -1,7 +1,7 @@
 package com.application.store.model;
 
-import com.application.store.dto.CustomerData;
-import com.application.store.dto.CustomerRegistratinoData;
+import com.application.store.dto.CustomerResponseDTO;
+import com.application.store.dto.CustomerRequesteDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,22 +26,22 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Sale> sales;
 
-    public Customer(CustomerRegistratinoData customerRegistratinoData) {
-        this.name = customerRegistratinoData.name();
-        this.lastName = customerRegistratinoData.lastName();
-        this.dni = customerRegistratinoData.dni();
+    public Customer(CustomerRequesteDTO customerRequesteDTO) {
+        this.name = customerRequesteDTO.name();
+        this.lastName = customerRequesteDTO.lastName();
+        this.dni = customerRequesteDTO.dni();
     }
 
-    public Customer(CustomerData customer) {
+    public Customer(CustomerResponseDTO customer) {
         this.id=customer.id();
     }
 
-    public void updateData(CustomerRegistratinoData customerRegistratinoData) {
-        if (customerRegistratinoData.name() != null)
-            this.name = customerRegistratinoData.name();
-        if (customerRegistratinoData.lastName() != null)
-            this.lastName = customerRegistratinoData.lastName();
-        if (customerRegistratinoData.dni() != null)
-            this.dni = customerRegistratinoData.dni();
+    public void updateData(CustomerRequesteDTO customerRequesteDTO) {
+        if (customerRequesteDTO.name() != null)
+            this.name = customerRequesteDTO.name();
+        if (customerRequesteDTO.lastName() != null)
+            this.lastName = customerRequesteDTO.lastName();
+        if (customerRequesteDTO.dni() != null)
+            this.dni = customerRequesteDTO.dni();
     }
 }
