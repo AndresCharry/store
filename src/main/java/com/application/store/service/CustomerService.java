@@ -1,7 +1,7 @@
 package com.application.store.service;
 
 import com.application.store.dto.CustomerResponseDTO;
-import com.application.store.dto.CustomerRequesteDTO;
+import com.application.store.dto.CustomerRequestDTO;
 import com.application.store.model.Customer;
 import com.application.store.repository.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,8 @@ public class CustomerService implements ICustomerService {
     private final ICustomerRepository customerRepository;
 
     @Override
-    public CustomerResponseDTO createCustomer(CustomerRequesteDTO customerRequesteDTO) {
-        Customer customer = new Customer(customerRequesteDTO);
+    public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO) {
+        Customer customer = new Customer(customerRequestDTO);
         customerRepository.save(customer);
         return new CustomerResponseDTO(customer);
     }
@@ -47,9 +47,9 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public CustomerResponseDTO updateCustomer(Long id, CustomerRequesteDTO customerRequesteDTO) {
+    public CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequestDTO) {
         Customer customer = customerRepository.getReferenceById(id);
-        customer.updateData(customerRequesteDTO);
+        customer.updateData(customerRequestDTO);
         return new CustomerResponseDTO(customer);
     }
 

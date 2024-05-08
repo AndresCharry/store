@@ -27,9 +27,7 @@ public class Customer {
     private List<Sale> sales;
 
     public Customer(CustomerRequestDTO customerRequestDTO) {
-        this.name = customerRequestDTO.name();
-        this.lastName = customerRequestDTO.lastName();
-        this.dni = customerRequestDTO.dni();
+        checkCustomer(customerRequestDTO);
     }
 
     public Customer(CustomerResponseDTO customer) {
@@ -37,6 +35,13 @@ public class Customer {
     }
 
     public void updateData(CustomerRequestDTO customerRequestDTO) {
+        checkCustomer(customerRequestDTO);
+
+    }
+
+    private void checkCustomer (CustomerRequestDTO customerRequestDTO) {
+        if (customerRequestDTO.id() != null)
+            this.id = customerRequestDTO.id();
         if (customerRequestDTO.name() != null)
             this.name = customerRequestDTO.name();
         if (customerRequestDTO.lastName() != null)

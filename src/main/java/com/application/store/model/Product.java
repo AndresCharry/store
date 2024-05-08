@@ -30,17 +30,16 @@ public class Product {
     private List<SaleDetail> details;
 
     public Product(ProductRequestDTO productRequestDTO) {
-        this.name = productRequestDTO.name();
-        this.brand = productRequestDTO.brand();
-        this.unitPrice = productRequestDTO.unitPrice();
-        this.availableQuantity = productRequestDTO.availableQuantity();
-    }
-
-    public Product(ProductResponseDTO product) {
-        this.id = product.id();
+        checkProduct(productRequestDTO);
     }
 
     public void updateData(ProductRequestDTO productRequestDTO) {
+        checkProduct(productRequestDTO);
+    }
+
+    private void checkProduct(ProductRequestDTO productRequestDTO) {
+        if (productRequestDTO.id() != null)
+            this.id = productRequestDTO.id();
         if (productRequestDTO.name() != null)
             this.name = productRequestDTO.name();
         if (productRequestDTO.brand() != null)
