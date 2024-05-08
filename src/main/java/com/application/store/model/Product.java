@@ -1,7 +1,7 @@
 package com.application.store.model;
 
-import com.application.store.dto.ProductData;
-import com.application.store.dto.ProductRegistrationData;
+import com.application.store.dto.ProductResponseDTO;
+import com.application.store.dto.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,25 +29,25 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<SaleDetail> details;
 
-    public Product(ProductRegistrationData productRegistrationData) {
-        this.name = productRegistrationData.name();
-        this.brand = productRegistrationData.brand();
-        this.unitPrice = productRegistrationData.unitPrice();
-        this.availableQuantity = productRegistrationData.availableQuantity();
+    public Product(ProductRequestDTO productRequestDTO) {
+        this.name = productRequestDTO.name();
+        this.brand = productRequestDTO.brand();
+        this.unitPrice = productRequestDTO.unitPrice();
+        this.availableQuantity = productRequestDTO.availableQuantity();
     }
 
-    public Product(ProductData product) {
+    public Product(ProductResponseDTO product) {
         this.id = product.id();
     }
 
-    public void updateData(ProductRegistrationData productRegistrationData) {
-        if (productRegistrationData.name() != null)
-            this.name = productRegistrationData.name();
-        if (productRegistrationData.brand() != null)
-            this.brand = productRegistrationData.brand();
-        if (productRegistrationData.unitPrice() != null)
-            this.unitPrice = productRegistrationData.unitPrice();
-        if (productRegistrationData.availableQuantity() != null)
-            this.availableQuantity = productRegistrationData.availableQuantity();
+    public void updateData(ProductRequestDTO productRequestDTO) {
+        if (productRequestDTO.name() != null)
+            this.name = productRequestDTO.name();
+        if (productRequestDTO.brand() != null)
+            this.brand = productRequestDTO.brand();
+        if (productRequestDTO.unitPrice() != null)
+            this.unitPrice = productRequestDTO.unitPrice();
+        if (productRequestDTO.availableQuantity() != null)
+            this.availableQuantity = productRequestDTO.availableQuantity();
     }
 }

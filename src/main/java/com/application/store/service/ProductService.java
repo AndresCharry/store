@@ -1,7 +1,7 @@
 package com.application.store.service;
 
-import com.application.store.dto.ProductData;
-import com.application.store.dto.ProductRegistrationData;
+import com.application.store.dto.ProductResponseDTO;
+import com.application.store.dto.ProductRequestDTO;
 import com.application.store.model.Product;
 import com.application.store.repository.IProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,37 +22,37 @@ public class ProductService implements IProductService {
     private final IProductRepository productRepository;
 
     @Override
-    public ProductData createProduct(ProductRegistrationData productRegistrationData) {
-        return new ProductData(productRepository.save(new Product(productRegistrationData)));
+    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+        return new ProductResponseDTO(productRepository.save(new Product(productRequestDTO)));
     }
 
     @Override
-    public Page<ProductData> getPageAllProducts(Pageable pageable) {
-        List<ProductData> ProductsData = productRepository.findAll()
+    public Page<ProductResponseDTO> getPageAllProducts(Pageable pageable) {
+        List<ProductResponseDTO> ProductsData = productRepository.findAll()
                                                           .stream()
-                                                          .map(ProductData::new)
+                                                          .map(ProductResponseDTO::new)
                                                           .toList();
         return new PageImpl<>(ProductsData, pageable, ProductsData.size());
     }
 
     @Override
-    public List<ProductData> getAllProducts() {
+    public List<ProductResponseDTO> getAllProducts() {
         return productRepository.findAll()
                                 .stream()
-                                .map(ProductData::new)
+                                .map(ProductResponseDTO::new)
                                 .toList();
     }
 
     @Override
-    public ProductData getProductById(Long id) {
-        return new ProductData(productRepository.getReferenceById(id));
+    public ProductResponseDTO getProductById(Long id) {
+        return new ProductResponseDTO(productRepository.getReferenceById(id));
     }
 
     @Override
-    public ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData) {
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
         Product product = productRepository.getReferenceById(id);
-        product.updateData(productRegistrationData);
-        return new ProductData(product);
+        product.updateData(productRequestDTO);
+        return new ProductResponseDTO(product);
     }
 
     @Override

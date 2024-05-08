@@ -1,7 +1,7 @@
 package com.application.store.service;
 
-import com.application.store.dto.ProductData;
-import com.application.store.dto.ProductRegistrationData;
+import com.application.store.dto.ProductResponseDTO;
+import com.application.store.dto.ProductRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface IProductService {
-    ProductData createProduct(ProductRegistrationData productRegistrationData);
-    Page<ProductData> getPageAllProducts(Pageable pageable);
-    List<ProductData> getAllProducts();
-    ProductData getProductById(Long id);
-    ProductData updateProduct(Long id, ProductRegistrationData productRegistrationData);
+    ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
+    Page<ProductResponseDTO> getPageAllProducts(Pageable pageable);
+    List<ProductResponseDTO> getAllProducts();
+    ProductResponseDTO getProductById(Long id);
+    ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO);
     void deleteProduct(Long id);
     Map<Long, BigDecimal> getProductUnitPrice(List<Long> productIds);
 }

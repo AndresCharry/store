@@ -1,7 +1,7 @@
 package com.application.store.controller;
 
-import com.application.store.dto.ProductData;
-import com.application.store.dto.ProductRegistrationData;
+import com.application.store.dto.ProductResponseDTO;
+import com.application.store.dto.ProductRequestDTO;
 import com.application.store.service.IProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,25 +21,25 @@ public class ProductController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<ProductData> createProduct (@RequestBody @Valid ProductRegistrationData productRegistrationData) {
-        return ResponseEntity.ok(productService.createProduct(productRegistrationData));
+    public ResponseEntity<ProductResponseDTO> createProduct (@RequestBody @Valid ProductRequestDTO productRequestDTO) {
+        return ResponseEntity.ok(productService.createProduct(productRequestDTO));
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<ProductData>> getPageAllProducts(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<ProductResponseDTO>> getPageAllProducts(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(productService.getPageAllProducts(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductData> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PutMapping("/edit/{id}")
     @Transactional
-    public ResponseEntity<ProductData> updateProduct(@PathVariable Long id,
-                                                     @RequestBody @Valid ProductRegistrationData productRegistrationData) {
-        return ResponseEntity.ok(productService.updateProduct(id, productRegistrationData));
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id,
+                                                            @RequestBody @Valid ProductRequestDTO productRequestDTO) {
+        return ResponseEntity.ok(productService.updateProduct(id, productRequestDTO));
     }
 
     @DeleteMapping("/delete/{id}")
