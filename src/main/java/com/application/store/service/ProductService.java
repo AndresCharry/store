@@ -36,14 +36,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductResponseDTO> getAllProducts() {
-        return productRepository.findAll()
-                                .stream()
-                                .map(ProductResponseDTO::new)
-                                .toList();
-    }
-
-    @Override
     public ProductResponseDTO getProductById(Long id) {
         return new ProductResponseDTO(productRepository.getReferenceById(id));
     }

@@ -12,7 +12,6 @@ import java.util.Map;
 public interface IProductService {
     ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
     Page<ProductResponseDTO> getPageAllProducts(Pageable pageable);
-    List<ProductResponseDTO> getAllProducts();
     ProductResponseDTO getProductById(Long id);
     ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO);
     void deleteProduct(Long id);

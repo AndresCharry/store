@@ -20,7 +20,6 @@ public class ProductController {
     private final IProductService productService;
 
     @PostMapping("/create")
-    @Transactional
     public ResponseEntity<ProductResponseDTO> createProduct (@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         return ResponseEntity.ok(productService.createProduct(productRequestDTO));
     }
@@ -36,14 +35,12 @@ public class ProductController {
     }
 
     @PutMapping("/edit/{id}")
-    @Transactional
     public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id,
                                                             @RequestBody @Valid ProductRequestDTO productRequestDTO) {
         return ResponseEntity.ok(productService.updateProduct(id, productRequestDTO));
     }
 
     @DeleteMapping("/delete/{id}")
-    @Transactional
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
