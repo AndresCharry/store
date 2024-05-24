@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository customerRepository;
 
+    @Transactional
     @Override
     public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO) {
         Customer customer = new Customer(customerRequestDTO);
@@ -34,18 +36,12 @@ public class CustomerService implements ICustomerService {
         return new PageImpl<>(customersData, pageable, customersData.size());
     }
 
-    public List<CustomerResponseDTO> getAllCustomers() {
-        return customerRepository.findAll()
-                                 .stream()
-                                 .map(CustomerResponseDTO::new)
-                                 .toList();
-    }
-
     @Override
     public CustomerResponseDTO getCustomerById(Long id) {
         return new CustomerResponseDTO(customerRepository.getReferenceById(id));
     }
 
+    @Transactional
     @Override
     public CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequestDTO) {
         Customer customer = customerRepository.getReferenceById(id);
@@ -53,6 +49,7 @@ public class CustomerService implements ICustomerService {
         return new CustomerResponseDTO(customer);
     }
 
+    @Transactional
     @Override
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);

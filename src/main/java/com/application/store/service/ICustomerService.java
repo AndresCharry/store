@@ -8,10 +8,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ICustomerService {
-    CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequesteDTO);
+    CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO);
     Page<CustomerResponseDTO> getPageAllCustomers(Pageable pageable);
-    List<CustomerResponseDTO> getAllCustomers();
     CustomerResponseDTO getCustomerById(Long id);
-    CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequesteDTO);
+    CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequestDTO);
     void deleteCustomer(Long id);
 }
