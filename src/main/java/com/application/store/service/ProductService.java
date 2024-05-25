@@ -37,12 +37,12 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductResponseDTO getProductById(Long id) {
-        return new ProductResponseDTO(productRepository.getReferenceById(id));
+        return new ProductResponseDTO(productRepository.findById(id).orElseThrow());
     }
 
     @Override
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
-        Product product = productRepository.getReferenceById(id);
+        Product product = productRepository.findById(id).orElseThrow();
         product.updateData(productRequestDTO);
         return new ProductResponseDTO(product);
     }

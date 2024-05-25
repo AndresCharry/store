@@ -4,6 +4,7 @@ import com.application.store.dto.ProductResponseDTO;
 import com.application.store.dto.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,34 +13,39 @@ import java.util.List;
 
 @Entity
 @Table(name = "products")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "brand", nullable = false)
     private String brand;
-    @Column(name = "unit_price")
+
+    @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
-    @Column(name = "available_quantity")
+
+    @Column(name = "available_quantity", nullable = false)
     private Double availableQuantity;
+
     @OneToMany(mappedBy = "product")
     private List<SaleDetail> details;
 
     public Product(ProductRequestDTO productRequestDTO) {
-        checkProduct(productRequestDTO);
+        this.name = productRequestDTO.name();
+        this.brand = productRequestDTO.brand();
+        this.unitPrice = productRequestDTO.unitPrice();
+        this.availableQuantity = productRequestDTO.availableQuantity();
     }
 
     public void updateData(ProductRequestDTO productRequestDTO) {
-        checkProduct(productRequestDTO);
-    }
-
-    private void checkProduct(ProductRequestDTO productRequestDTO) {
-        if (productRequestDTO.id() != null)
-            this.id = productRequestDTO.id();
         if (productRequestDTO.name() != null)
             this.name = productRequestDTO.name();
         if (productRequestDTO.brand() != null)
@@ -49,4 +55,9 @@ public class Product {
         if (productRequestDTO.availableQuantity() != null)
             this.availableQuantity = productRequestDTO.availableQuantity();
     }
+
+    private void checkProduct(ProductRequestDTO productRequestDTO) {
+
+    }
 }
+

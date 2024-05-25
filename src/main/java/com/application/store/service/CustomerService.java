@@ -38,13 +38,13 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public CustomerResponseDTO getCustomerById(Long id) {
-        return new CustomerResponseDTO(customerRepository.getReferenceById(id));
+        return new CustomerResponseDTO(customerRepository.findById(id).orElseThrow());
     }
 
     @Transactional
     @Override
     public CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequestDTO) {
-        Customer customer = customerRepository.getReferenceById(id);
+        Customer customer = customerRepository.findById(id).orElseThrow();
         customer.updateData(customerRequestDTO);
         return new CustomerResponseDTO(customer);
     }
