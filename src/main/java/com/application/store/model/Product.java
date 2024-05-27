@@ -35,7 +35,7 @@ public class Product {
     private Double availableQuantity;
 
     @OneToMany(mappedBy = "product")
-    private List<SaleDetails> details;
+    private List<SaleDetails> saleDetails;
 
     public Product(ProductRequestDTO productRequestDTO) {
         this.name = productRequestDTO.name();

@@ -56,6 +56,7 @@ public class ProductService implements IProductService {
         productRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Map<Long, BigDecimal> getProductUnitPrice(List<Long> productIds) {
         List<Product> products = productRepository.findAllById(productIds);
