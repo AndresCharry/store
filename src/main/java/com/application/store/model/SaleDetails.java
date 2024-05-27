@@ -1,40 +1,42 @@
 package com.application.store.model;
 
-import com.application.store.dto.DetailsData;
-import com.application.store.dto.DetailsRegistrationData;
+import com.application.store.dto.SaleDetailsRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "sales_detail")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class SaleDetail {
+public class SaleDetails {
 
     @EmbeddedId
     private SaleOrderKey id;
+
+    @Column(name = "quantity_product", nullable = false)
     private Integer quantity;
-    @Column(name = "unit_price")
+
+    @Column(name = "unit_price_product", nullable = false)
     private BigDecimal unitPrice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("saleId")
     @JoinColumn(name = "sale_id")
     @ToString.Exclude
     private Sale sale;
+
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public SaleDetail(DetailsRegistrationData detailsRegistrationData) {
-        this.quantity = detailsRegistrationData.quantity();
-        this.product = new Product(detailsRegistrationData.product());
+    public SaleDetails(SaleDetailsRequestDTO saleDetailsRequestDTO) {
+        this.quantity = saleDetailsRequestDTO.quantityProduct();
+        this.product = new Product(saleDetailsRequestDTO.productId());
     }
 
     public BigDecimal getSubtotal(){

@@ -1,9 +1,9 @@
 package com.application.store.model;
 
-import com.application.store.dto.DetailsRegistrationData;
-import com.application.store.dto.SaleRegistrationData;
+import com.application.store.dto.SaleRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,22 +14,26 @@ import java.util.List;
 
 @Entity
 @Table(name = "sales")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDate date;
+
     @OneToMany(
             mappedBy = "sale",
             cascade = CascadeType.PERSIST
     )
-    private List<SaleDetail> details;
+    private List<SaleDetails> details;
+
     @ManyToOne
     @JoinColumn(
             name = "fk_customer_id",
@@ -37,19 +41,19 @@ public class Sale {
     )
     private Customer customer;
 
-    public Sale(SaleRegistrationData saleRegistrationData) {
-        this.details = saleRegistrationData.details()
-                                           .stream()
-                                           .map(SaleDetail::new)
-                                           .toList();
-        this.customer = new Customer(saleRegistrationData.customer());
+    public Sale(SaleRequestDTO saleRequestDTO) {
+        this.details = saleRequestDTO.saleDetails()
+                                     .stream()
+                                     .map(SaleDetails::new)
+                                     .toList();
+        this.customer = new Customer();
     }
 
     public BigDecimal getTotal() {
         if (details == null || details.isEmpty()) return BigDecimal.ZERO;
 
         return details.stream()
-                .map(SaleDetail::getSubtotal)
+                .map(SaleDetails::getSubtotal)
                 .reduce(BigDecimal.ZERO, (current, total) -> total.add(current));
     }
 }

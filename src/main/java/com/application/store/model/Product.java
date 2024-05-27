@@ -1,6 +1,5 @@
 package com.application.store.model;
 
-import com.application.store.dto.ProductResponseDTO;
 import com.application.store.dto.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,13 +35,17 @@ public class Product {
     private Double availableQuantity;
 
     @OneToMany(mappedBy = "product")
-    private List<SaleDetail> details;
+    private List<SaleDetails> details;
 
     public Product(ProductRequestDTO productRequestDTO) {
         this.name = productRequestDTO.name();
         this.brand = productRequestDTO.brand();
         this.unitPrice = productRequestDTO.unitPrice();
         this.availableQuantity = productRequestDTO.availableQuantity();
+    }
+
+    public Product(Long productId) {
+        this.id = productId;
     }
 
     public void updateData(ProductRequestDTO productRequestDTO) {
@@ -54,10 +57,6 @@ public class Product {
             this.unitPrice = productRequestDTO.unitPrice();
         if (productRequestDTO.availableQuantity() != null)
             this.availableQuantity = productRequestDTO.availableQuantity();
-    }
-
-    private void checkProduct(ProductRequestDTO productRequestDTO) {
-
     }
 }
 

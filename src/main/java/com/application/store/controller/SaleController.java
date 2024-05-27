@@ -1,7 +1,7 @@
 package com.application.store.controller;
 
 import com.application.store.dto.SaleData;
-import com.application.store.dto.SaleRegistrationData;
+import com.application.store.dto.SaleRequestDTO;
 import com.application.store.service.ISaleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class SaleController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<SaleData> createSale(@RequestBody @Valid SaleRegistrationData saleRegistrationData){
-        return ResponseEntity.ok(saleService.createSale(saleRegistrationData));
+    public ResponseEntity<SaleData> createSale(@RequestBody @Valid SaleRequestDTO saleRequestDTO){
+        return ResponseEntity.ok(saleService.createSale(saleRequestDTO));
     }
 }
