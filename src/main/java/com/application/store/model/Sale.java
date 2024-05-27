@@ -32,7 +32,7 @@ public class Sale {
             mappedBy = "sale",
             cascade = CascadeType.PERSIST
     )
-    private List<SaleDetails> details;
+    private List<SaleDetails> saleDetails;
 
     @ManyToOne
     @JoinColumn(
@@ -42,7 +42,7 @@ public class Sale {
     private Customer customer;
 
     public Sale(SaleRequestDTO saleRequestDTO) {
-        this.details = saleRequestDTO.saleDetails()
+        this.saleDetails = saleRequestDTO.saleDetails()
                                      .stream()
                                      .map(SaleDetails::new)
                                      .toList();
@@ -50,9 +50,9 @@ public class Sale {
     }
 
     public BigDecimal getTotal() {
-        if (details == null || details.isEmpty()) return BigDecimal.ZERO;
+        if (saleDetails == null || saleDetails.isEmpty()) return BigDecimal.ZERO;
 
-        return details.stream()
+        return saleDetails.stream()
                 .map(SaleDetails::getSubtotal)
                 .reduce(BigDecimal.ZERO, (current, total) -> total.add(current));
     }

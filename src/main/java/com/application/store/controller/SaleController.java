@@ -1,6 +1,6 @@
 package com.application.store.controller;
 
-import com.application.store.dto.SaleData;
+import com.application.store.dto.SaleResponseDTO;
 import com.application.store.dto.SaleRequestDTO;
 import com.application.store.service.ISaleService;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class SaleController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<SaleData> createSale(@RequestBody @Valid SaleRequestDTO saleRequestDTO){
+    public ResponseEntity<SaleResponseDTO> createSale(@RequestBody @Valid SaleRequestDTO saleRequestDTO){
         return ResponseEntity.ok(saleService.createSale(saleRequestDTO));
     }
 }
