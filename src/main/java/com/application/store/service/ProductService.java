@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class ProductService implements IProductService {
 
     private final IProductRepository productRepository;
 
+    @Transactional
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
         return new ProductResponseDTO(productRepository.save(new Product(productRequestDTO)));
@@ -40,6 +42,7 @@ public class ProductService implements IProductService {
         return new ProductResponseDTO(productRepository.findById(id).orElseThrow());
     }
 
+    @Transactional
     @Override
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
         Product product = productRepository.findById(id).orElseThrow();
@@ -47,6 +50,7 @@ public class ProductService implements IProductService {
         return new ProductResponseDTO(product);
     }
 
+    @Transactional
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
