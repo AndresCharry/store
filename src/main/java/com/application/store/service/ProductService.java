@@ -24,30 +24,27 @@ public class ProductService implements IProductService {
 
     @Transactional
     @Override
-    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
-        return new ProductResponseDTO(productRepository.save(new Product(productRequestDTO)));
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
-    public Page<ProductResponseDTO> getPageAllProducts(Pageable pageable) {
-        List<ProductResponseDTO> ProductsData = productRepository.findAll()
-                                                          .stream()
-                                                          .map(ProductResponseDTO::new)
-                                                          .toList();
-        return new PageImpl<>(ProductsData, pageable, ProductsData.size());
+    public Page<Product> getPageAllProducts(Pageable pageable) {
+        List<Product> Products = productRepository.findAll();
+        return new PageImpl<>(Products, pageable, Products.size());
     }
 
     @Override
-    public ProductResponseDTO getProductById(Long id) {
-        return new ProductResponseDTO(productRepository.findById(id).orElseThrow());
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow();
     }
 
     @Transactional
     @Override
-    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
+    public Product updateProduct(Long id, ProductRequestDTO productRequestDTO) {
         Product product = productRepository.findById(id).orElseThrow();
         product.updateData(productRequestDTO);
-        return new ProductResponseDTO(product);
+        return product;
     }
 
     @Transactional
@@ -58,12 +55,29 @@ public class ProductService implements IProductService {
 
     @Transactional
     @Override
-    public Map<Long, BigDecimal> getProductUnitPrice(List<Long> productIds) {
-        List<Product> products = productRepository.findAllById(productIds);
+    public Map<Long, BigDecimal> getProductUnitPrice(List<Long> productsIds) {
+        List<Product> products = productRepository.findAllById(productsIds);
         Map<Long, BigDecimal> productUnitPrice = new HashMap<>();
         products.forEach(product ->
             productUnitPrice.put(product.getId(), product.getUnitPrice())
         );
         return productUnitPrice;
+    }
+
+    @Transactional
+    @Override
+    public Map<Long,Integer> getQuantitiesOfProducts(List<Long> productsIds) {
+        List<Product> products = productRepository.findAllById(productsIds);
+        Map<Long, Integer> quantitiesOfProducts = new HashMap<>();
+        products.forEach(product ->
+                quantitiesOfProducts.put(product.getId(), product.getAvailableQuantity())
+        );
+        return quantitiesOfProducts;
+    }
+
+    @Transactional
+    @Override
+    public void updateProducts(List<Product> products) {
+        productRepository.saveAll(products);
     }
 }

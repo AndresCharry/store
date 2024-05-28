@@ -9,7 +9,7 @@ public record ProductResponseDTO(
    String name,
    String brand,
    BigDecimal unitPrice,
-   Double availableQuantity
+   Integer availableQuantity
 ) {
     public ProductResponseDTO(Product product) {
         this(product.getId(), product.getName(), product.getBrand(), product.getUnitPrice(), product.getAvailableQuantity());

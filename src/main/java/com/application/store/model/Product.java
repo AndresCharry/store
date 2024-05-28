@@ -32,7 +32,7 @@ public class Product {
     private BigDecimal unitPrice;
 
     @Column(name = "available_quantity", nullable = false)
-    private Double availableQuantity;
+    private Integer availableQuantity;
 
     @OneToMany(mappedBy = "product")
     private List<SaleDetails> saleDetails;

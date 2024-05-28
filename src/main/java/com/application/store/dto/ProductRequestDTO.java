@@ -10,6 +10,6 @@ public record ProductRequestDTO(
         @NotBlank String name,
         @NotBlank String brand,
         @Min(value = 1) BigDecimal unitPrice,
-        @Min(value = 1) Double availableQuantity
+        @Min(value = 1) Integer availableQuantity
 ) {
 }

@@ -27,9 +27,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<Customer> getPageAllCustomers(Pageable pageable) {
-        List<Customer> customers = customerRepository.findAll()
-                                                     .stream()
-                                                     .toList();
+        List<Customer> customers = customerRepository.findAll();
         return new PageImpl<>(customers, pageable, customers.size());
     }
 
