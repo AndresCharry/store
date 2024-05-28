@@ -1,6 +1,5 @@
 package com.application.store.service;
 
-import com.application.store.dto.CustomerResponseDTO;
 import com.application.store.dto.CustomerRequestDTO;
 import com.application.store.model.Customer;
 import com.application.store.repository.ICustomerRepository;
@@ -21,32 +20,30 @@ public class CustomerService implements ICustomerService {
 
     @Transactional
     @Override
-    public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO) {
-        Customer customer = new Customer(customerRequestDTO);
+    public Customer createCustomer(Customer customer) {
         customerRepository.save(customer);
-        return new CustomerResponseDTO(customer);
+        return customer;
     }
 
     @Override
-    public Page<CustomerResponseDTO> getPageAllCustomers(Pageable pageable) {
-        List<CustomerResponseDTO> customersData = customerRepository.findAll()
-                                                             .stream()
-                                                             .map(CustomerResponseDTO::new)
-                                                             .toList();
-        return new PageImpl<>(customersData, pageable, customersData.size());
+    public Page<Customer> getPageAllCustomers(Pageable pageable) {
+        List<Customer> customers = customerRepository.findAll()
+                                                     .stream()
+                                                     .toList();
+        return new PageImpl<>(customers, pageable, customers.size());
     }
 
     @Override
-    public CustomerResponseDTO getCustomerById(Long id) {
-        return new CustomerResponseDTO(customerRepository.findById(id).orElseThrow());
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id).orElseThrow();
     }
 
     @Transactional
     @Override
-    public CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO customerRequestDTO) {
+    public Customer updateCustomer(Long id, CustomerRequestDTO customerRequestDTO) {
         Customer customer = customerRepository.findById(id).orElseThrow();
         customer.updateData(customerRequestDTO);
-        return new CustomerResponseDTO(customer);
+        return customer;
     }
 
     @Transactional

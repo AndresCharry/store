@@ -2,6 +2,7 @@ package com.application.store.controller;
 
 import com.application.store.dto.CustomerRequestDTO;
 import com.application.store.dto.CustomerResponseDTO;
+import com.application.store.model.Customer;
 import com.application.store.service.ICustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +21,24 @@ public class CustomerController {
 
     @PostMapping("/create")
     public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody @Valid CustomerRequestDTO customerRequestDTO) {
-        return ResponseEntity.ok(customerService.createCustomer(customerRequestDTO));
+        Customer customer = customerService.createCustomer(new Customer(customerRequestDTO));
+        return ResponseEntity.ok(new CustomerResponseDTO(customer));
     }
 
     @GetMapping("")
     public ResponseEntity<Page<CustomerResponseDTO>> getPageAllCustomers(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(customerService.getPageAllCustomers(pageable));
+        return ResponseEntity.ok(customerService.getPageAllCustomers(pageable).map(CustomerResponseDTO::new));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(customerService.getCustomerById(id));
+        return ResponseEntity.ok(new CustomerResponseDTO(customerService.getCustomerById(id)));
     }
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable("id") Long id,
                                                               @RequestBody @Valid CustomerRequestDTO customerRequestDTO) {
-        return ResponseEntity.ok(customerService.updateCustomer(id, customerRequestDTO));
+        return ResponseEntity.ok(new CustomerResponseDTO(customerService.updateCustomer(id, customerRequestDTO)));
     }
 
     @DeleteMapping("/delete/{id}")
