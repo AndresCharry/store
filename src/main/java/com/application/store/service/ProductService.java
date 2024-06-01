@@ -1,6 +1,5 @@
 package com.application.store.service;
 
-import com.application.store.dto.ProductResponseDTO;
 import com.application.store.dto.ProductRequestDTO;
 import com.application.store.model.Product;
 import com.application.store.repository.IProductRepository;
@@ -11,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,27 +54,15 @@ public class ProductService implements IProductService {
 
     @Transactional
     @Override
-    public Map<Long, BigDecimal> getProductUnitPrice(List<Long> productsIds) {
+    public Map<Long, Product> getMapProducts(List<Long> productsIds) {
         List<Product> products = productRepository.findAllById(productsIds);
-        Map<Long, BigDecimal> productUnitPrice = new HashMap<>();
+        Map<Long, Product> MapProducts = new HashMap<>();
         products.forEach(product ->
-            productUnitPrice.put(product.getId(), product.getUnitPrice())
+                MapProducts.put(product.getId(), product)
         );
-        return productUnitPrice;
+        return MapProducts;
     }
 
-    @Transactional
-    @Override
-    public Map<Long,Integer> getQuantitiesOfProducts(List<Long> productsIds) {
-        List<Product> products = productRepository.findAllById(productsIds);
-        Map<Long, Integer> quantitiesOfProducts = new HashMap<>();
-        products.forEach(product ->
-                quantitiesOfProducts.put(product.getId(), product.getAvailableQuantity())
-        );
-        return quantitiesOfProducts;
-    }
-
-    @Transactional
     @Override
     public void updateProducts(List<Product> products) {
         productRepository.saveAll(products);

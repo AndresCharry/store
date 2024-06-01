@@ -2,10 +2,7 @@ package com.application.store.model;
 
 import com.application.store.dto.SaleRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -14,10 +11,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "sales")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Sale {
 
     @Id
@@ -30,7 +28,7 @@ public class Sale {
 
     @OneToMany(
             mappedBy = "sale",
-            cascade = CascadeType.PERSIST
+            cascade = CascadeType.ALL
     )
     private List<SaleDetails> saleDetails;
 
@@ -46,7 +44,7 @@ public class Sale {
                                      .stream()
                                      .map(SaleDetails::new)
                                      .toList();
-        this.customer = new Customer();
+        this.customer = new Customer(saleRequestDTO.customerId());
     }
 
     public BigDecimal getTotal() {

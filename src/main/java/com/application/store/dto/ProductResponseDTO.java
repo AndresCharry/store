@@ -12,6 +12,11 @@ public record ProductResponseDTO(
    Integer availableQuantity
 ) {
     public ProductResponseDTO(Product product) {
-        this(product.getId(), product.getName(), product.getBrand(), product.getUnitPrice(), product.getAvailableQuantity());
+        this(product.getId(),
+             product.getName(),
+             product.getBrand(),
+             product.getUnitPrice(),
+             product.getAvailableQuantity()
+        );
     }
 }

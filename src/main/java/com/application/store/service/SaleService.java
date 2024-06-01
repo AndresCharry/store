@@ -1,14 +1,12 @@
 package com.application.store.service;
 
-import com.application.store.dto.SaleData;
-import com.application.store.dto.SaleRegistrationData;
+import com.application.store.model.Product;
 import com.application.store.model.Sale;
-import com.application.store.model.SaleOrderKey;
 import com.application.store.repository.ISaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -19,40 +17,48 @@ public class SaleService implements ISaleService {
     private final IProductService productService;
     private final ISaleRepository saleRepository;
 
+    @Transactional
     @Override
-    public SaleData createSale(SaleRegistrationData saleRegistrationData) {
-        Sale sale = new Sale(saleRegistrationData);
+    public Sale createSale(Sale sale) {
         System.out.println(sale);
-        sale.getDetails().forEach(System.out::println);
-        setInformationDetails(sale);
-        System.out.println(sale);
+        setSaleInSaleDetails(sale);
+        setUnitPriceInSaleDetails(sale);
+        updateAvailableQuantityOfProduct(sale);
         saleRepository.save(sale);
-        return null;
+        System.out.println(sale);
+        return sale;
     }
 
-    private void setInformationDetails(Sale sale) {
-        setId(sale);
-        setUnitPrice(sale);
-        //setSale(sale);
+    private void setSaleInSaleDetails(Sale sale) {
+        sale.getSaleDetails().forEach(saleDetails -> saleDetails.setSale(sale));
     }
 
-    private void setId(Sale sale) {
-        sale.getDetails().forEach(saleDetail -> saleDetail.setId(new SaleOrderKey(
-                 saleDetail.getProduct().getId()
-        )));
+    private void setUnitPriceInSaleDetails(Sale sale) {
+        List<Long> productsIds = productsIds(sale);
+        Map<Long, Product> MapProducts = productService.getMapProducts(productsIds);
+        sale.getSaleDetails().forEach(saleDetail -> saleDetail.setUnitPrice(MapProducts.get(
+                saleDetail.getProduct().getId()).getUnitPrice()
+        ));
     }
 
-    private void setSale(Sale sale) {
-        sale.getDetails().forEach(saleDetail -> saleDetail.setSale(sale));
+    private void updateAvailableQuantityOfProduct(Sale sale) {
+        List<Long> productsIds = productsIds(sale);
+        Map<Long, Product> mapProducts = productService.getMapProducts(productsIds);
+        sale.getSaleDetails()
+                .forEach(saleDetail -> {
+                    Long productId = saleDetail.getProduct().getId();
+                    int newAvailableQuantity = mapProducts.get(productId).getAvailableQuantity() - saleDetail.getQuantity();
+                    if (newAvailableQuantity < 0) throw new RuntimeException("insufficient quantity");
+                    mapProducts.get(productId).setAvailableQuantity(newAvailableQuantity);
+                });
+        System.out.println(mapProducts.values());
+        productService.updateProducts(mapProducts.values().stream().toList());
     }
 
-    private void setUnitPrice(Sale sale) {
-        List<Long> productIds = sale.getDetails().stream().map(saleDetail -> saleDetail.getProduct()
-                                                                                       .getId())
-                                                                                       .toList();
-        Map<Long, BigDecimal> productUnitPrice = productService.getProductUnitPrice(productIds);
-        sale.getDetails().forEach(saleDetail -> saleDetail.setUnitPrice(productUnitPrice.get(
-                saleDetail.getProduct().getId()
-        )));
+    private List<Long> productsIds (Sale sale){
+        return sale.getSaleDetails()
+                .stream()
+                .map(saleDetail -> saleDetail.getProduct().getId())
+                .toList();
     }
 }

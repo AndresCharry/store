@@ -2,20 +2,18 @@ package com.application.store.model;
 
 import com.application.store.dto.ProductRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Product {
 
     @Id
@@ -34,7 +32,10 @@ public class Product {
     @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL
+    )
     private List<SaleDetails> saleDetails;
 
     public Product(ProductRequestDTO productRequestDTO) {

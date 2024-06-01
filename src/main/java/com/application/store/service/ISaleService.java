@@ -1,8 +1,7 @@
 package com.application.store.service;
 
-import com.application.store.dto.SaleResponseDTO;
-import com.application.store.dto.SaleRequestDTO;
+import com.application.store.model.Sale;
 
 public interface ISaleService {
-    SaleResponseDTO createSale(SaleRequestDTO saleRequestDTO);
+    Sale createSale(Sale sale);
 }

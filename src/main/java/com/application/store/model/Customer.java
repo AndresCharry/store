@@ -3,19 +3,17 @@ package com.application.store.model;
 import com.application.store.dto.CustomerResponseDTO;
 import com.application.store.dto.CustomerRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Customer {
 
     @Id
@@ -40,8 +38,8 @@ public class Customer {
         this.dni = customerRequestDTO.dni();
     }
 
-    public Customer(CustomerResponseDTO customer) {
-        this.id=customer.id();
+    public Customer(Long CustomerId) {
+        this.id = CustomerId;
     }
 
     public void updateData(CustomerRequestDTO customerRequestDTO) {

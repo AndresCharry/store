@@ -2,6 +2,7 @@ package com.application.store.controller;
 
 import com.application.store.dto.SaleResponseDTO;
 import com.application.store.dto.SaleRequestDTO;
+import com.application.store.model.Sale;
 import com.application.store.service.ISaleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class SaleController {
     @PostMapping("/create")
     @Transactional
     public ResponseEntity<SaleResponseDTO> createSale(@RequestBody @Valid SaleRequestDTO saleRequestDTO){
-        return ResponseEntity.ok(saleService.createSale(saleRequestDTO));
+        Sale sale = new Sale(saleRequestDTO);
+        return ResponseEntity.ok(new SaleResponseDTO(saleService.createSale(sale)));
+        //return  ResponseEntity.ok(null);
     }
 }
